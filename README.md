@@ -1,1 +1,1 @@
-# music-collection
+# Music Collection
