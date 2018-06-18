@@ -5,10 +5,29 @@
  */
 package com.test.musiccollection.model;
 
+import javax.persistence.Column;
+
 /**
  *
  * @author alejandra
  */
-public class Artist {
+public class Artist extends GenericInfo {
+
+    @Column(name="years", unique=true)
+    private Integer years;
+
+    // Constructor
+    public Artist(){}
+
+    // Getter
+
+    public Integer getYears(){
+        return years;
+    }
+
+    // Setter
+    public void setYears(Integer years){
+        this.years = years;
+    }
     
 }

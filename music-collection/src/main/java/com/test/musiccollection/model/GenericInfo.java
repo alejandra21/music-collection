@@ -10,6 +10,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Index;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.Table;
 
 /**
  *
@@ -17,7 +21,16 @@ import javax.persistence.Id;
  */
 
 @Entity
-public class Style {
+@Table(
+    indexes= @Index(
+            name="id_info",
+            columnList="id",
+            unique=true
+    )
+)
+
+@Inheritance(strategy=InheritanceType.JOINED)
+public abstract class GenericInfo {
 
     @Id
     @GeneratedValue(strategy=GenerationType.SEQUENCE)
@@ -26,9 +39,7 @@ public class Style {
     @Column(name="name", unique=true)
     private String name;
 
-    public Style(String name){
-        this.name = name;
-    }
+    public GenericInfo(){}
 
     // Getter
 
