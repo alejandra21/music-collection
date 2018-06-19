@@ -45,14 +45,14 @@ public class PeopleController {
     }
     
     @RequestMapping(value="/people/add", method=RequestMethod.POST)
-    public String addStyles(
+    public String addPeople(
             @RequestParam(value="name") String name,
             @RequestParam(value="year") Integer years,
             Model model) {
                 
         String message;
         //Delete action
-        String action  = "/style/delete";
+        String action  = "/people/delete";
         
         MessageResponse response = addElements.newPeople(years,name);
         
