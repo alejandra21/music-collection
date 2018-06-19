@@ -8,6 +8,7 @@ package com.test.musiccollection.controller;
 import com.test.musiccollection.MessageResponse;
 import com.test.musiccollection.repository.ArtistRepository;
 import com.test.musiccollection.repository.PeopleRepository;
+import com.test.musiccollection.repository.StyleRepository;
 import com.test.musiccollection.service.ServiceAddElements;
 import com.test.musiccollection.service.ServiceDeleteElements;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,8 @@ public class ArtistController {
     @Autowired
     PeopleRepository peopleRepo;
     @Autowired
+    StyleRepository styleRepo;
+    @Autowired
     private ServiceAddElements addElements;
     @Autowired
     private ServiceDeleteElements deleteElements;
@@ -45,6 +48,7 @@ public class ArtistController {
     public String formArtist(Model model) {
         
         model.addAttribute("members", peopleRepo.findAll());
+        model.addAttribute("styles", styleRepo.findAll());
         return "newArtist";
     }
 }

@@ -39,7 +39,7 @@ public class StyleController {
     public String allStyles(Model model) {
         
         model.addAttribute("elements", styleRepo.findAll());
-        return "showElements";
+        return "showStyle";
     }
     
     @RequestMapping(value="/style/add", method=RequestMethod.GET)
@@ -64,7 +64,7 @@ public class StyleController {
         model.addAttribute("message", message);
         model.addAttribute("action", action);
         
-        return "showElements";
+        return "showStyle";
     }
     
     @RequestMapping(value="/style/delete", method=RequestMethod.POST)
@@ -90,7 +90,7 @@ public class StyleController {
         model.addAttribute("message", message);
         model.addAttribute("action", action);
         
-        return "showElements";
+        return "showStyle";
     }
     
 }

@@ -18,6 +18,11 @@
                 <option th:attr="value=${member.id}"th:text="${member.name}"></option>
             </div>
         </select>
+        <select multiple th:if="${not #lists.isEmpty(styles)}">
+            <div th:each="style : ${styles}">
+                <option th:attr="value=${style.id}"th:text="${style.name}"></option>
+            </div>
+        </select>
         <input type="submit" value="¡Suscríbe!"/>
       </fieldset>
     </form>
