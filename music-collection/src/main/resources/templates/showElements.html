@@ -15,6 +15,7 @@
         <div th:each="elem : ${elements}">    
             <li>
                 <p th:text="${elem.name}"></p>
+                <p th:text="${elem.years}"></p>
                 <form th:attr="action=${action}" method="post">
                     <input type="hidden" id="id" name="id" th:attr="value=${elem.id}">
                     <input type="submit" value="Eliminar">

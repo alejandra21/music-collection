@@ -38,10 +38,10 @@ public class People {
     @ManyToOne
     private Artist artist;
         
-    @Column(name="name", unique=true)
+    @Column(name="name")
     private String name;
 
-    @Column(name="years", unique=true)
+    @Column(name="years")
     private Integer years;
 
     // Constructor
