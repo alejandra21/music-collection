@@ -9,12 +9,29 @@ import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Index;
+import javax.persistence.Table;
 
 /**
  *
  * @author alejandra
  */
-public class People extends GenericInfo{
+
+@Table(
+    indexes= @Index(
+            name="id_people",
+            columnList="id",
+            unique=true
+    )
+)
+public class People {
+
+    @Id
+    @GeneratedValue(strategy=GenerationType.SEQUENCE)
+    private Long id;
+
+    @Column(name="name", unique=true)
+    private String name;
 
     @Column(name="years", unique=true)
     private Integer years;
@@ -26,6 +43,14 @@ public class People extends GenericInfo{
 
     public Integer getYears(){
         return years;
+    }
+
+    public Long getId(){
+        return id;
+    }
+
+    public String getName(){
+        return name;
     }
 
     // Setter

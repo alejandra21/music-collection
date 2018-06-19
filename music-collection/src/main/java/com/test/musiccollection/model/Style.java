@@ -23,14 +23,12 @@ import javax.persistence.Table;
 @Entity
 @Table(
     indexes= @Index(
-            name="id_info",
+            name="id_style",
             columnList="id",
             unique=true
     )
 )
-
-@Inheritance(strategy=InheritanceType.JOINED)
-public abstract class GenericInfo {
+public class Style {
 
     @Id
     @GeneratedValue(strategy=GenerationType.SEQUENCE)
@@ -39,7 +37,7 @@ public abstract class GenericInfo {
     @Column(name="name", unique=true)
     private String name;
 
-    public GenericInfo(){}
+    public Style(){}
 
     // Getter
 
