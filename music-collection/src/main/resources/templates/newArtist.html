@@ -9,10 +9,15 @@
 
   <body>
   
-    <form action="/people/add" method="post">
+    <form action="/artist/add" method="post">
       <fieldset>
         <input type="text" name="name" />
         <input type="number" name="year" />
+        <select multiple th:if="${not #lists.isEmpty(members)}">
+            <div th:each="member : ${members}">
+                <option th:attr="value=${member.id}"th:text="${member.name}"></option>
+            </div>
+        </select>
         <input type="submit" value="¡Suscríbe!"/>
       </fieldset>
     </form>
