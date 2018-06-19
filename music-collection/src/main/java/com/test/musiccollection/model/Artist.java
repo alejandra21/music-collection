@@ -42,7 +42,7 @@ public class Artist{
     private Long id;
 
     // People associated with an artist.
-    @OneToMany(mappedBy = "merchant", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "artist", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<People> members = new ArrayList<>();
 
     @ManyToMany(cascade = { CascadeType.ALL })

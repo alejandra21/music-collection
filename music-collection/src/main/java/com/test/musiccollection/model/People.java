@@ -13,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Index;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -34,6 +35,9 @@ public class People {
     @GeneratedValue(strategy=GenerationType.SEQUENCE)
     private Long id;
 
+    @ManyToOne
+    private Artist artist;
+        
     @Column(name="name", unique=true)
     private String name;
 

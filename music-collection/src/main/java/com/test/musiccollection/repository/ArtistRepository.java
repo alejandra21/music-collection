@@ -5,6 +5,7 @@
  */
 package com.test.musiccollection.repository;
 
+import com.test.musiccollection.model.Artist;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -14,6 +15,6 @@ import org.springframework.stereotype.Repository;
  */
 
 @Repository
-public interface ArtistRepository extends JpaRepository<ArtistRepository, Long> {
+public interface ArtistRepository extends JpaRepository<Artist, Long> {
     
 }
