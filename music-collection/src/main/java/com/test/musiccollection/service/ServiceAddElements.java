@@ -6,6 +6,7 @@
 package com.test.musiccollection.service;
 
 import com.test.musiccollection.MessageResponse;
+import com.test.musiccollection.model.People;
 import com.test.musiccollection.model.Style;
 import com.test.musiccollection.repository.ArtistRepository;
 import com.test.musiccollection.repository.PeopleRepository;
@@ -60,6 +61,29 @@ public class ServiceAddElements {
         
         messageResponse.setStatus("200");
         messageResponse.setContent("El estilo ha sido almacenado de manera satisfactoria.");
+
+        return messageResponse;
+    
+    }
+    
+    public MessageResponse newPeople(Integer years, String name){
+                        
+        People people = new People();
+        people.setName(name);
+        people.setYears(years);
+        
+        try {
+            people = peopleRepo.save(people);
+        } catch (TransactionSystemException e){
+            // TODO: define the error code in the API.
+            messageResponse.setStatus("401");
+            messageResponse.setContent("El formato de sus datos no es correcto.");
+            return messageResponse;
+        }
+        
+        
+        messageResponse.setStatus("200");
+        messageResponse.setContent("La persona se ha almacenado de forma satisfactoria.");
 
         return messageResponse;
     
