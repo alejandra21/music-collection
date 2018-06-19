@@ -7,6 +7,7 @@ package com.test.musiccollection.controller;
 
 import com.test.musiccollection.model.Style;
 import com.test.musiccollection.repository.StyleRepository;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -56,6 +57,35 @@ public class StyleController {
         System.out.println(name);
         
         model.addAttribute("elements", styleRepo.findAll());
+        return "showElements";
+    }
+    
+        @RequestMapping(value="/style/delete", method=RequestMethod.POST)
+    public String deleteStyles(
+            @RequestParam(value="id") String id,
+            Model model) {
+        
+        // TODO: I have to make a service that save new styles.
+        
+        System.out.println("id");
+        System.out.println(id);
+        
+        Long styleId = Long.valueOf(id).longValue();
+        Optional<Style> optionalStyle = styleRepo.findById(styleId);
+        
+        String  message = "";
+                
+        if (!optionalStyle.isPresent()) {
+            System.out.println("No existe el style");
+            message = "No existe el Style";
+        }
+        
+        Style style = optionalStyle.get();
+        styleRepo.delete(style);
+        message = "Se eliminó el elemento satisfactoriamente.";
+                
+        model.addAttribute("elements", styleRepo.findAll());
+        model.addAttribute("message", message);
         return "showElements";
     }
     
