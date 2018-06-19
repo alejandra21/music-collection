@@ -5,8 +5,10 @@
  */
 package com.test.musiccollection.controller;
 
+import com.test.musiccollection.MessageResponse;
 import com.test.musiccollection.model.Style;
 import com.test.musiccollection.repository.StyleRepository;
+import com.test.musiccollection.service.ServiceAddElements;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,7 +26,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class StyleController {
     
     @Autowired
-     StyleRepository styleRepo;
+    StyleRepository styleRepo;
+    @Autowired
+    private ServiceAddElements addElements;
+    public  MessageResponse messageResponse = new MessageResponse();
     
     
     @RequestMapping(value="/style", method=RequestMethod.GET)
@@ -46,17 +51,19 @@ public class StyleController {
     public String addStyles(
             @RequestParam(value="name") String name,
             Model model) {
+                
+        String message;
+        //Delete action
+        String action  = "/style/delete";
         
-        // TODO: I have to make a service that save new styles.
+        MessageResponse response = addElements.newStyle(name);
         
-        Style newStyle = new Style();
-        newStyle.setName(name);
-        newStyle = styleRepo.save(newStyle);
-        
-        System.out.println("ESTE ES EL RESULTADO");
-        System.out.println(name);
-        
+        message = response.getContent();
+                
         model.addAttribute("elements", styleRepo.findAll());
+        model.addAttribute("message", message);
+        model.addAttribute("action", action);
+        
         return "showElements";
     }
     
@@ -67,14 +74,12 @@ public class StyleController {
         
         // TODO: I have to make a service that save new styles.
         
-        System.out.println("id");
-        System.out.println(id);
+        String  message;
+        String action   = "/style/delete";
         
         Long styleId = Long.valueOf(id).longValue();
         Optional<Style> optionalStyle = styleRepo.findById(styleId);
-        
-        String  message = "";
-                
+            
         if (!optionalStyle.isPresent()) {
             System.out.println("No existe el style");
             message = "No existe el Style";
@@ -82,10 +87,13 @@ public class StyleController {
         
         Style style = optionalStyle.get();
         styleRepo.delete(style);
+        
         message = "Se eliminó el elemento satisfactoriamente.";
                 
         model.addAttribute("elements", styleRepo.findAll());
         model.addAttribute("message", message);
+        model.addAttribute("action", action);
+        
         return "showElements";
     }
     
