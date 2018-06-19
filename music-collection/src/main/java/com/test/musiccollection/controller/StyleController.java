@@ -9,6 +9,7 @@ import com.test.musiccollection.MessageResponse;
 import com.test.musiccollection.model.Style;
 import com.test.musiccollection.repository.StyleRepository;
 import com.test.musiccollection.service.ServiceAddElements;
+import com.test.musiccollection.service.ServiceDeleteElements;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,21 +30,20 @@ public class StyleController {
     StyleRepository styleRepo;
     @Autowired
     private ServiceAddElements addElements;
+    @Autowired
+    private ServiceDeleteElements deleteElements;
     public  MessageResponse messageResponse = new MessageResponse();
     
     
     @RequestMapping(value="/style", method=RequestMethod.GET)
     public String allStyles(Model model) {
         
-        System.out.println("ESTE ES EL RESULTADO");
-        System.out.println(styleRepo.findAll());
         model.addAttribute("elements", styleRepo.findAll());
         return "showElements";
     }
     
     @RequestMapping(value="/style/add", method=RequestMethod.GET)
     public String formStyles() {
-        System.out.println("Voy a mostrar el form");
         return "newStyle";
     }
     
@@ -67,29 +67,25 @@ public class StyleController {
         return "showElements";
     }
     
-        @RequestMapping(value="/style/delete", method=RequestMethod.POST)
+    @RequestMapping(value="/style/delete", method=RequestMethod.POST)
     public String deleteStyles(
             @RequestParam(value="id") String id,
             Model model) {
         
         // TODO: I have to make a service that save new styles.
         
-        String  message;
         String action   = "/style/delete";
         
+        System.out.println("ESTE ES EL ID");
+        System.out.println(id);
         Long styleId = Long.valueOf(id).longValue();
-        Optional<Style> optionalStyle = styleRepo.findById(styleId);
-            
-        if (!optionalStyle.isPresent()) {
-            System.out.println("No existe el style");
-            message = "No existe el Style";
-        }
         
-        Style style = optionalStyle.get();
-        styleRepo.delete(style);
+        System.out.println("ESTE ES EL ID DESPUES");
+        System.out.println(styleId);
         
-        message = "Se eliminó el elemento satisfactoriamente.";
-                
+        MessageResponse response = deleteElements.deleteStyle(styleId);
+        String message = response.getContent();
+                        
         model.addAttribute("elements", styleRepo.findAll());
         model.addAttribute("message", message);
         model.addAttribute("action", action);

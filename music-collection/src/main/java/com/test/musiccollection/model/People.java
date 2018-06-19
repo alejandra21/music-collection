@@ -66,4 +66,8 @@ public class People {
         this.years = years;
     }
     
+    public void setName(String name){
+        this.name = name;
+    }
+    
 }
