@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  *
@@ -30,6 +31,23 @@ public class StyleController {
         
         System.out.println("ESTE ES EL RESULTADO");
         System.out.println(styleRepo.findAll());
+        model.addAttribute("elements", styleRepo.findAll());
+        return "showElements";
+    }
+    
+    @RequestMapping(value="/style/add", method=RequestMethod.GET)
+    public String formStyles() {
+        System.out.println("Voy a mostrar el form");
+        return "newStyle";
+    }
+    
+    @RequestMapping(value="/style/add", method=RequestMethod.POST)
+    public String addStyles(
+            @RequestParam(value="name") String name,
+            Model model) {
+        
+        System.out.println("ESTE ES EL RESULTADO");
+        System.out.println(name);
         model.addAttribute("elements", styleRepo.findAll());
         return "showElements";
     }
