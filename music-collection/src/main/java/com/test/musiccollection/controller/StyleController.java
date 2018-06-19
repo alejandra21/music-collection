@@ -46,8 +46,15 @@ public class StyleController {
             @RequestParam(value="name") String name,
             Model model) {
         
+        // TODO: I have to make a service that save new styles.
+        
+        Style newStyle = new Style();
+        newStyle.setName(name);
+        newStyle = styleRepo.save(newStyle);
+        
         System.out.println("ESTE ES EL RESULTADO");
         System.out.println(name);
+        
         model.addAttribute("elements", styleRepo.findAll());
         return "showElements";
     }
