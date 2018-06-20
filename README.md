@@ -67,7 +67,8 @@ Esto generara un JAR en el directorio `target`
 Para ejecutar el servidor, solo debe ejecutarse
 `java -jar <JAR-generado> --server.port=<puerto>`
 
-Luego de ejecutar el comando anterior se podrá acceder al sistema, ingresando en algún navegador el siguiente URL.
+Se podrá ingresar al sistema a traves del siguiente URL.
+
 `localhost:<puerto>`
 
 ## Sobre el desarrollo
