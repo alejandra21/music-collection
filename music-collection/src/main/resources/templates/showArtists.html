@@ -16,14 +16,8 @@
             <li>
                 <p th:text="${elem.name}"></p>
                 <p th:text="${elem.years}"></p>
-                <b th:if="${not #lists.isEmpty(elem.members)}">People</b>
-                
-                <div th:each="member : ${elem.getMembers()}">
-                    <li>
-                        <p th:text="${member}"></p>
-                    </li> 
-                </div>
-
+                <p th:text="${elem.members}"></p>
+                <p th:text="${elem.styles}"></p>
             </li>    
         </div>
     </ul>

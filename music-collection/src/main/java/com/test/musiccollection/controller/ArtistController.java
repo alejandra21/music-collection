@@ -6,11 +6,14 @@
 package com.test.musiccollection.controller;
 
 import com.test.musiccollection.MessageResponse;
+import com.test.musiccollection.model.People;
+import com.test.musiccollection.model.Style;
 import com.test.musiccollection.repository.ArtistRepository;
 import com.test.musiccollection.repository.PeopleRepository;
 import com.test.musiccollection.repository.StyleRepository;
 import com.test.musiccollection.service.ServiceAddElements;
 import com.test.musiccollection.service.ServiceDeleteElements;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -75,12 +78,27 @@ public class ArtistController {
         MessageResponse response = addElements.newArtist(years,name,members,styles);
         
         message = response.getContent();
+        
                 
         model.addAttribute("elements", artistRepo.findAll());
         model.addAttribute("message", message);
         model.addAttribute("action", action);
         
         System.out.print(artistRepo.findAll());
+        
+        List<People> lista = new ArrayList<>();
+        
+        // Return merchants' vendors        
+        artistRepo.findAll().forEach(artist->{
+            artist.getMembers().forEach(gente->{
+                
+                System.out.println(gente.getName());
+                System.out.println(gente.getYears());
+            
+            });
+            
+        });
+                
         return "showArtists";
     }
 }

@@ -43,7 +43,7 @@ public class Artist{
 
     // People associated with an artist.
     @OneToMany(mappedBy = "artist", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<People> members = new ArrayList<>();
+    private final List<People> members = new ArrayList<>();
 
     @ManyToMany(cascade = { CascadeType.ALL })
     @JoinTable(
