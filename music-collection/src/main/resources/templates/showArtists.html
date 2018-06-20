@@ -20,12 +20,23 @@
    
                 <span th:each="member,iterStat : ${elem.members}">
                     <p th:text="${member.name}"><p/>
+                    <form action="/artist/member" method="post">
+                        <input type="hidden" id="idMember" name="idMember" th:attr="value=${member.id}">
+                        <input type="hidden" id="idArtist" name="idArtist" th:attr="value=${elem.id}">
+                        <input type="submit" value="Eliminar miembro">
+                    </form>
                 </span>
                 
                 <b th:if="${not #lists.isEmpty(elem.styles)}">Style</b>
                 <span th:each="style,iterStat : ${elem.styles}">
                     <p th:text="${style.name}"><p/>
+                    <form action="/artist/style" method="post">
+                        <input type="hidden" id="idStyle" name="idStyle" th:attr="value=${style.id}">
+                        <input type="hidden" id="idArtist" name="idArtist" th:attr="value=${elem.id}">
+                        <input type="submit" value="Eliminar estilo">
+                    </form>
                 </span>
+                
                 <form th:attr="action=${action}" method="post">
                     <input type="hidden" id="id" name="id" th:attr="value=${elem.id}">
                     <input type="submit" value="Eliminar">

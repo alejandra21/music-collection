@@ -50,6 +50,26 @@ public class ArtistController {
         
         model.addAttribute("action", action);
         model.addAttribute("elements", artistRepo.findAll());
+        
+        artistRepo.findAll().forEach(artist->{
+            artist.getMembers().forEach(gente->{
+                
+                System.out.println(gente.getName());
+                System.out.println(gente.getYears());
+            
+            });
+            
+        });
+               
+        artistRepo.findAll().forEach(artist->{
+            artist.getStyles().forEach(gente->{
+                
+                System.out.println(gente.getName());
+            
+            });
+            
+        });
+        
         return "showArtists";
     }
     
@@ -127,6 +147,7 @@ public class ArtistController {
                         
 
         model.addAttribute("message", message);
+       
 
         System.out.println("ESTOS SON LOS ELEMENTOS");
         artistRepo.findAll().forEach(artist->{
@@ -148,6 +169,49 @@ public class ArtistController {
             
         });
         
+        return "redirect:/artist";
+    }
+    
+    @RequestMapping(value = "/artist/member", method = RequestMethod.POST)
+    public String deleteMember(
+            @RequestParam(value = "idMember") String idMember,
+            @RequestParam(value = "idArtist") String idArtist,
+            Model model) {
+
+        System.out.println("Estoy en member");
+        
+        Long memberId = Long.valueOf(idMember).longValue();
+        Long artistId = Long.valueOf(idArtist).longValue();
+
+        MessageResponse response = deleteElements.deleteArtistMember(memberId,artistId);
+        String message = response.getContent();
+        
+        
+        model.addAttribute("message", message);
+        
+        System.out.println(message);
+
+        return "redirect:/artist";
+    }
+    
+    @RequestMapping(value = "/artist/style", method = RequestMethod.POST)
+    public String deleteStyle(
+            @RequestParam(value = "idStyle") String idStyle,
+            @RequestParam(value = "idArtist") String idArtist,
+            Model model) {
+
+        System.out.println("Estoy en style");
+        
+        Long styleId = Long.valueOf(idStyle).longValue();
+        Long artistId = Long.valueOf(idArtist).longValue();
+
+        MessageResponse response = deleteElements.deleteArtistStyle(styleId,artistId);
+        String message = response.getContent();
+
+        model.addAttribute("message", message);
+        
+        System.out.println(message);
+
         return "redirect:/artist";
     }
 }

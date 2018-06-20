@@ -56,6 +56,10 @@ public class People {
     public Long getId(){
         return id;
     }
+    
+    public Artist getArtist(){
+        return artist;
+    }
 
     public String getName(){
         return name;

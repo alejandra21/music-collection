@@ -56,7 +56,7 @@ public class Artist{
     @Column(name="name", unique=true)
     private String name;
 
-    @Column(name="years", unique=true)
+    @Column(name="years")
     private Integer years;
 
     // Constructor

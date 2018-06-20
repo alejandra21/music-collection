@@ -123,11 +123,80 @@ public class ServiceDeleteElements {
             
             artist.getMembers().forEach(member->{
                 //artist.removeStyle(style);
-                artist.removeMember(member);
+                member.setArtist(null);
             
             });
             
             artistRepo.delete(artist);;
+        } catch (TransactionSystemException e){
+            // TODO: define the error code in the API.
+            messageResponse.setStatus("401");
+            messageResponse.setContent("No se pudo eliminar el elemento seleccionado.");
+            return messageResponse;
+        }
+        
+        messageResponse.setStatus("200");
+        messageResponse.setContent("Se ha eliminado el elemento de manera satisfactoria.");
+
+        return messageResponse;
+    
+    }
+    
+    public MessageResponse deleteArtistMember(Long idMember, Long idArtist){
+        
+        Optional<People> optionalMember = peopleRepo.findById(idMember);
+        Optional<Artist> optionalArtist = artistRepo.findById(idArtist);
+            
+        if (!optionalMember.isPresent()||!optionalArtist.isPresent()) {
+            messageResponse.setStatus("401");
+            messageResponse.setContent("No existe el elemento que desea eliminar.");
+            return messageResponse;
+        }
+        
+        People member = optionalMember.get();
+        Artist artist = optionalArtist.get();
+        
+        try {
+            
+            artist.removeMember(member);
+            artistRepo.save(artist);
+
+        } catch (TransactionSystemException e){
+            // TODO: define the error code in the API.
+            messageResponse.setStatus("401");
+            messageResponse.setContent("No se pudo eliminar el elemento seleccionado.");
+            return messageResponse;
+        }
+        
+        messageResponse.setStatus("200");
+        messageResponse.setContent("Se ha eliminado el elemento de manera satisfactoria.");
+
+        return messageResponse;
+    
+    }
+    
+    public MessageResponse deleteArtistStyle(Long idStyle, Long idArtist){
+        
+        Optional<Style> optionalStyle = styleRepo.findById(idStyle);
+        Optional<Artist> optionalArtist = artistRepo.findById(idArtist);
+            
+        if (!optionalStyle.isPresent()||!optionalArtist.isPresent()) {
+            messageResponse.setStatus("401");
+            messageResponse.setContent("No existe el elemento que desea eliminar.");
+            return messageResponse;
+        }
+        
+        Style style = optionalStyle.get();
+        Artist artist = optionalArtist.get();
+        
+        try {
+            
+            artist.removeStyle(style);
+            style.removeArtist(artist);
+            
+            artistRepo.save(artist);
+            styleRepo.save(style);
+
         } catch (TransactionSystemException e){
             // TODO: define the error code in the API.
             messageResponse.setStatus("401");
