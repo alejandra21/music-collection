@@ -87,8 +87,7 @@ public class ArtistController {
         System.out.print(artistRepo.findAll());
         
         List<People> lista = new ArrayList<>();
-        
-        // Return merchants' vendors        
+            
         artistRepo.findAll().forEach(artist->{
             artist.getMembers().forEach(gente->{
                 
@@ -98,7 +97,37 @@ public class ArtistController {
             });
             
         });
+               
+        artistRepo.findAll().forEach(artist->{
+            artist.getStyles().forEach(gente->{
+                
+                System.out.println(gente.getName());
+            
+            });
+            
+        });
                 
         return "showArtists";
+    }
+    
+    @RequestMapping(value="/artist/delete", method=RequestMethod.POST)
+    public String deleteArtist(
+            @RequestParam(value="id") String id,
+            Model model) {
+        
+        // TODO: I have to make a service that save new styles.
+        
+        String action   = "/artist/delete";
+        
+        Long artistId = Long.valueOf(id).longValue();
+
+        MessageResponse response = deleteElements.deleteArtist(artistId);
+        String message = response.getContent();
+                        
+        model.addAttribute("elements", artistRepo.findAll());
+        model.addAttribute("message", message);
+        model.addAttribute("action", action);
+        
+        return "showElements";
     }
 }

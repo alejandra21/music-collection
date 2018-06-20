@@ -63,4 +63,9 @@ public class Style {
         this.name = name;
     }
     
+    public void removeArtist(Artist artist) {
+        artists.remove(artist);
+        //style.setArtist(null);
+    }
+    
 }

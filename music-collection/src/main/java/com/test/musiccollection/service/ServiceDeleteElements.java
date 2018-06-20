@@ -107,6 +107,13 @@ public class ServiceDeleteElements {
         Artist artist = optionalArtist.get();
         
         try {
+            
+            artist.getStyles().forEach(style->{
+                //artist.removeStyle(style);
+                style.removeArtist(artist);
+            
+            });
+            
             artistRepo.delete(artist);;
         } catch (TransactionSystemException e){
             // TODO: define the error code in the API.

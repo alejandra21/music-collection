@@ -18,6 +18,10 @@
                 <p th:text="${elem.years}"></p>
                 <p th:text="${elem.members}"></p>
                 <p th:text="${elem.styles}"></p>
+                <form th:attr="action=${action}" method="post">
+                    <input type="hidden" id="id" name="id" th:attr="value=${elem.id}">
+                    <input type="submit" value="Eliminar">
+                </form>
             </li>    
         </div>
     </ul>

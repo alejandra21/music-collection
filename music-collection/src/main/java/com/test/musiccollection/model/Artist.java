@@ -45,7 +45,7 @@ public class Artist{
     @OneToMany(mappedBy = "artist", cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<People> members = new ArrayList<>();
 
-    @ManyToMany(cascade = { CascadeType.ALL })
+    @ManyToMany()
     @JoinTable(
         name = "Artist_Style", 
         joinColumns = { @JoinColumn(name = "id_artist") }, 
@@ -111,7 +111,7 @@ public class Artist{
     
     public void removeStyle(Style style) {
         styles.remove(style);
-        //member.setArtist(null);
+        //style.setArtist(null);
     }
 
 }
