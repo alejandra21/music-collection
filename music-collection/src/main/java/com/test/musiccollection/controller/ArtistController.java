@@ -11,11 +11,13 @@ import com.test.musiccollection.repository.PeopleRepository;
 import com.test.musiccollection.repository.StyleRepository;
 import com.test.musiccollection.service.ServiceAddElements;
 import com.test.musiccollection.service.ServiceDeleteElements;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  *
@@ -50,5 +52,35 @@ public class ArtistController {
         model.addAttribute("members", peopleRepo.findAll());
         model.addAttribute("styles", styleRepo.findAll());
         return "newArtist";
+    }
+    
+    @RequestMapping(value="/artist/add", method=RequestMethod.POST)
+    public String addArtist(
+        @RequestParam(value="name") String name,
+        @RequestParam(value="year") Integer years,
+        @RequestParam("members") List<String> members,
+        @RequestParam("styles") List<String> styles,
+        Model model) {
+          
+        System.out.print("ESTOS SON LOS MIEMBROS");
+        System.out.println(members);
+        
+        System.out.print("ESTOS SON LOS ESTILOS");
+        System.out.println(styles);
+        
+        String message;
+        //Delete action
+        String action  = "/artist/delete";
+        
+        MessageResponse response = addElements.newArtist(years,name,members,styles);
+        
+        message = response.getContent();
+                
+        model.addAttribute("elements", artistRepo.findAll());
+        model.addAttribute("message", message);
+        model.addAttribute("action", action);
+        
+        System.out.print(artistRepo.findAll());
+        return "showArtists";
     }
 }

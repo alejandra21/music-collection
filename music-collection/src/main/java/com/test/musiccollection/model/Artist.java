@@ -60,7 +60,8 @@ public class Artist{
     private Integer years;
 
     // Constructor
-    public Artist(){}
+    public Artist(){
+    }
 
     // Getter
 

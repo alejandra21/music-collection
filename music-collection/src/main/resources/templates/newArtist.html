@@ -9,20 +9,24 @@
 
   <body>
   
+    <form:checkboxes items="${members}" path="members" />
     <form action="/artist/add" method="post">
       <fieldset>
         <input type="text" name="name" />
         <input type="number" name="year" />
-        <select multiple th:if="${not #lists.isEmpty(members)}">
-            <div th:each="member : ${members}">
-                <option th:attr="value=${member.id}"th:text="${member.name}"></option>
-            </div>
-        </select>
-        <select multiple th:if="${not #lists.isEmpty(styles)}">
-            <div th:each="style : ${styles}">
-                <option th:attr="value=${style.id}"th:text="${style.name}"></option>
-            </div>
-        </select>
+        
+        <b th:if="${not #lists.isEmpty(members)}">Miembros</b>
+        <div th:if="${not #lists.isEmpty(members)}" th:each="member : ${members}">
+            <label th:text="${member.name}"></label>
+           <input type="checkbox" th:name="members" th:value="${member.id}"/> 
+        </div>
+        
+        <b th:if="${not #lists.isEmpty(styles)}">Estilos</b>
+        <div th:if="${not #lists.isEmpty(styles)}" th:each="style : ${styles}">
+            <label th:text="${style.name}"></label>
+           <input type="checkbox" th:name="styles" th:value="${style.id}"/> 
+        </div>
+        
         <input type="submit" value="¡Suscríbe!"/>
       </fieldset>
     </form>
