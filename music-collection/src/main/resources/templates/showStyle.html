@@ -43,17 +43,23 @@
     </div>
     
     <div class="container" style="padding: 70px;">
-        <ul>
-            <div th:each="elem : ${elements}">    
-                <li>
-                    <p th:text="${elem.name}"></p>
-                    <form th:attr="action=${action}" method="post">
-                        <input type="hidden" id="id" name="id" th:attr="value=${elem.id}">
-                        <input type="submit" value="Eliminar">
-                    </form>
-                </li>    
-            </div>
-        </ul>
+        <div class="col-md-4">
+		<h1>Style</h1>
+	</div>
+        <table class="table table-striped">
+            <tr>
+                <th>Name</th>
+                <th>Delete</th>
+            </tr>
+            <tr th:each = "elem : ${elements}">
+                <td th:text="${elem.name}"></td>
+                <td>
+                    <a th:href="@{/style/{id}/delete/(id=${elem.id})}" class="btn btn-danger btn-xs">Delete</a>
+                </td>
+            </tr>
+        </table>
+        
+        <a href="/style/add" class="btn btn-success">Add Style</a>
     </div>
     
   </body>

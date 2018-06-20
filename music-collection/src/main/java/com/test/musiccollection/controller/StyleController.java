@@ -14,6 +14,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -70,23 +71,16 @@ public class StyleController {
         return "showStyle";
     }
     
-    @RequestMapping(value="/style/delete", method=RequestMethod.POST)
+    @RequestMapping(value="/style/{id}/delete", method=RequestMethod.GET)
     public String deleteStyles(
-            @RequestParam(value="id") String id,
+            @PathVariable("id") Long id,
             Model model) {
         
         // TODO: I have to make a service that save new styles.
         
         String action   = "/style/delete";
-        
-        System.out.println("ESTE ES EL ID");
-        System.out.println(id);
-        Long styleId = Long.valueOf(id).longValue();
-        
-        System.out.println("ESTE ES EL ID DESPUES");
-        System.out.println(styleId);
-        
-        MessageResponse response = deleteElements.deleteStyle(styleId);
+       
+        MessageResponse response = deleteElements.deleteStyle(id);
         String message = response.getContent();
                         
         model.addAttribute("elements", styleRepo.findAll());
