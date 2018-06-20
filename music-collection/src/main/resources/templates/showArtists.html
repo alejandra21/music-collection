@@ -16,8 +16,16 @@
             <li>
                 <p th:text="${elem.name}"></p>
                 <p th:text="${elem.years}"></p>
-                <p th:text="${elem.members}"></p>
-                <p th:text="${elem.styles}"></p>
+                <b th:if="${not #lists.isEmpty(elem.members)}">Member</b>
+   
+                <span th:each="member,iterStat : ${elem.members}">
+                    <p th:text="${member.name}"><p/>
+                </span>
+                
+                <b th:if="${not #lists.isEmpty(elem.styles)}">Style</b>
+                <span th:each="style,iterStat : ${elem.styles}">
+                    <p th:text="${style.name}"><p/>
+                </span>
                 <form th:attr="action=${action}" method="post">
                     <input type="hidden" id="id" name="id" th:attr="value=${elem.id}">
                     <input type="submit" value="Eliminar">
