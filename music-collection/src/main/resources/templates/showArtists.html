@@ -15,6 +15,7 @@
         <div th:each="elem : ${elements}">
             
             <a th:href="@{/artist/{id}/member/add(id=${elem.id})}">Añadir miembro</a>
+            <a th:href="@{/artist/{id}/style/add(id=${elem.id})}">Añadir estilo</a>
             
             <li>
                 <p th:text="${elem.name}"></p>

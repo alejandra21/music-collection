@@ -105,6 +105,35 @@ public class ArtistController {
         return "redirect:/artist";
     }
     
+    @RequestMapping(value="/artist/{id}/style/add", method=RequestMethod.GET)
+    public String addArtistStyle(@PathVariable("id") Long artistId,
+                                  Model model) {
+        
+        model.addAttribute("id", artistId);
+        model.addAttribute("style", styleRepo.findAll());
+   
+        return "addStyle";
+    }
+    
+    @RequestMapping(value="/artist/{id}/style/add", method=RequestMethod.POST)
+    public String saveArtistStyle(@PathVariable("id") Long artistId,
+                    @RequestParam("style") Optional<List<String>> style,
+                    Model model) {
+        
+        
+        List<String> styleList = new ArrayList<>();
+        
+        if (style.isPresent()){
+            styleList =  style.get();
+        }
+   
+        MessageResponse message = addElements.newArtistStyle(artistId, styleList);
+        
+        model.addAttribute("message", message);
+        
+        return "redirect:/artist";
+    }
+    
     @RequestMapping(value="/artist/add", method=RequestMethod.GET)
     public String formArtist(Model model) {
         
