@@ -43,15 +43,28 @@
     <p th:text="${message}"></p>
 
     <div class="container" style="padding: 70px;">
+        
+        <div class="col-md-4">
+            <h1>Add New Styles</h1>
+        </div>
+        
         <form th:action="@{/artist/{id}/style/add/(id=${id})}" method="post">
- 
-            <div class="form-group">
-                <div th:if="${not #lists.isEmpty(style)}" th:each="elem : ${style}">
-                    <label th:text="${elem.name}"></label>
-                   <input type="checkbox" th:name="styles" th:value="${elem.id}"/> 
-                </div>
-            <div class="form-group">
-                
+            
+            <table class="table table-striped">
+                <tr>
+                    <th>Name</th>
+                    <th>Checkbox</th>
+                </tr>
+                <tr th:if="${not #lists.isEmpty(style)}" th:each="elem : ${style}">
+                    <th>
+                        <label th:text="${elem.name}"></label>
+                    </th>
+                    <th>
+                        <input type="checkbox" th:name="styles" th:value="${elem.id}"/> 
+                    </th>
+                </tr> 
+            </table>
+               
             <button type="submit" class="btn btn-success">Add New Styles</button>
 
         </form>
