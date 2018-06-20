@@ -43,9 +43,6 @@
     <p th:text="${message}"></p>
 
     <div class="container" style="padding: 70px;">
-        <div class="col-md-4">
-            <h1>Add new Styles</h1>
-        </div>
         <form th:action="@{/artist/{id}/style/add/(id=${id})}" method="post">
  
             <div class="form-group">

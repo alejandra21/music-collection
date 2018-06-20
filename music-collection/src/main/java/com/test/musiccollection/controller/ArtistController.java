@@ -79,7 +79,6 @@ public class ArtistController {
     public String addArtistMember(@PathVariable("id") Long artistId,
                                   Model model) {
         
-        List<People> newList = new ArrayList<>();
         List<People> artistMembers = new ArrayList<>();
         Optional<Artist> artist    =  artistRepo.findById(artistId);
         List<People> allPeople     =  peopleRepo.findAll();
@@ -120,8 +119,19 @@ public class ArtistController {
     public String addArtistStyle(@PathVariable("id") Long artistId,
                                   Model model) {
         
+        List<Style> artistStyles = new ArrayList<>();
+        Optional<Artist> artist = artistRepo.findById(artistId);
+        List<Style> allStyles = styleRepo.findAll();
+
+        if (artist.isPresent()) {
+            artistStyles = artist.get().getStyles();
+            allStyles.removeAll(artistStyles);
+        }
+        
+        
+        
         model.addAttribute("id", artistId);
-        model.addAttribute("style", styleRepo.findAll());
+        model.addAttribute("style", allStyles);
    
         return "addStyle";
     }
