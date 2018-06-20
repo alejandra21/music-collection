@@ -6,9 +6,7 @@ Este repositorio contiene el código que modela el problema presentado [aquí](h
 
 * Para el desarrollo de este proyecto, se escogió Spring Boot como framework de desarrollo y PostgreSQL como base de datos. 
 
-* Las vistas del mismo fueron implementadas haciendo uso de Javascript, HTML5 y Bootstrap.
-
-* El proyecto cuenta con un archivo `Dockerfile` y `docker-compose`. Esto brinda la facilidad a los futuros usuarios de este proyecto de poder ejecutar el proyecto tanto de forma tradicional, como en un contenedor de Docker.
+* Las vistas del mismo fueron implementadas haciendo uso de HTML, CSS y Bootstrap.
 
 * Las instrucciones que se muestran a continuación, están dirigidas a sistemas basados en Debian, en particular, Ubuntu.
 
@@ -18,10 +16,6 @@ Los requerimientos básico de este proyecto son los siguientes:
 
 * Java 8
 * Una versión razonablemente moderna de PostgreSQL
-
-Si se desea ejecutar el proyecto en un contenedor de Docker se necesitará:
-
-* Compose ( las instrucciones de instalación se encuentran [aquí](https://docs.docker.com/compose/install/) )
 
 ### Instalación de dependencias:
 
@@ -49,8 +43,18 @@ sudo apt install postgresql
 ```
 sudo apt install maven
 ```
+### Creación de la base de datos
+
+```bash
+sudo -u postgres psql
+create user music with password 'music';
+create database collection owner music;
+alter user music CREATEDB;
+```
 
 ### Compilación y despliegue
+
+Uno de los flags de hibernate que se encuentran en el archivo de application.properies, esta configurado como **"create-drop"**, esto quiere decir que la base de datos será eliminada y creada cada vez que se compile la aplicación.
 
 La aplicación se puede compilar desde la línea de comandos con Maven. Esto se puede realizar ejecuntado el siguiente comando en el directorio raíz del proyecto:
 
@@ -62,3 +66,10 @@ Esto generara un JAR en el directorio `target`
 
 Para ejecutar el servidor, solo debe ejecutarse
 `java -jar <JAR-generado> --server.port=<puerto>`
+
+Luego de ejecutar el comando anterior se podrá acceder al sistema, ingresando en algún navegador el siguiente URL.
+`localhost:<puerto>`
+
+## Sobre el desarrollo
+
+Se utilizó [NetBeans](https://netbeans.org/downloads/) para desarrollar el proyecto.
