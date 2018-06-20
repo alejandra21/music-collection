@@ -119,7 +119,7 @@ public class ArtistController {
     
     @RequestMapping(value="/artist/{id}/style/add", method=RequestMethod.POST)
     public String saveArtistStyle(@PathVariable("id") Long artistId,
-                    @RequestParam("style") Optional<List<String>> style,
+                    @RequestParam("styles") Optional<List<String>> style,
                     Model model) {
         
         
@@ -128,7 +128,11 @@ public class ArtistController {
         if (style.isPresent()){
             styleList =  style.get();
         }
-   
+        
+        System.out.print("Estos son los ID");
+        System.out.print(artistId);
+        System.out.print(styleList);
+ 
         MessageResponse message = addElements.newArtistStyle(artistId, styleList);
         
         model.addAttribute("message", message);
