@@ -6,6 +6,7 @@
 package com.test.musiccollection.controller;
 
 import com.test.musiccollection.MessageResponse;
+import com.test.musiccollection.model.Artist;
 import com.test.musiccollection.model.People;
 import com.test.musiccollection.model.Style;
 import com.test.musiccollection.repository.ArtistRepository;
@@ -78,6 +79,15 @@ public class ArtistController {
     public String addArtistMember(@PathVariable("id") Long artistId,
                                   Model model) {
         
+        List<String> newList = new ArrayList<>();
+        Artist newArtist =  new Artist();
+        Optional<Artist> artist    =  artistRepo.findById(artistId);
+        List<People> allPeople     =  peopleRepo.findAll();
+        
+        if (artist.isPresent()){
+            newList = allPeople.removeAll(newList)
+        }
+  
         model.addAttribute("id", artistId);
         model.addAttribute("members", peopleRepo.findAll());
    

@@ -41,19 +41,23 @@
     </div>
       
     <div class="container" style="padding: 70px;">
-        <form action="/people/add" method="post">
-            <div class="form-group">
-                <label for="peopleName">Name</label>
-                <input type="text" name="name" class="form-control" />
-            </div>
-            <div class="form-group">
-                <label for="peopleYears">Year</label>
-                <input type="number" name="year" class="form-control" />
-             </div>
-            
-            <button type="submit" class="btn btn-success">Add People</button>
 
-        </form>
+        <div>
+            <form action="/people/add" method="post">
+                <div class="form-group">
+                    <label for="peopleName">People Name</label>
+                    <input type="text" name="name" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label for="peopleYears">Year</label>
+                    <input type="number" name="year" class="form-control" />
+                </div>
+
+                <button type="submit" class="btn btn-success">Add People</button>
+
+            </form>
+        </div>
+
     </div>
          
   </body>

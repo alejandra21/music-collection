@@ -41,19 +41,21 @@
       </div>
       
     <p th:text="${message}"></p>
-    
+
     <div class="container" style="padding: 70px;">
+        <div class="col-md-4">
+            <h1>Add new Styles</h1>
+        </div>
         <form th:action="@{/artist/{id}/style/add/(id=${id})}" method="post">
-          <fieldset>
-
-            <b th:if="${not #lists.isEmpty(style)}">Estilos</b>
-            <div th:if="${not #lists.isEmpty(style)}" th:each="elem : ${style}">
-                <label th:text="${elem.name}"></label>
-               <input type="checkbox" th:name="styles" th:value="${elem.id}"/> 
-            </div>
-
-            <input type="submit" value="¡Suscríbe!"/>
-          </fieldset>
+ 
+            <div class="form-group">
+                <div th:if="${not #lists.isEmpty(style)}" th:each="elem : ${style}">
+                    <label th:text="${elem.name}"></label>
+                   <input type="checkbox" th:name="styles" th:value="${elem.id}"/> 
+                </div>
+            <div class="form-group">
+                
+            <button type="submit" class="btn btn-success">Add New Styles</button>
 
         </form>
     </div>

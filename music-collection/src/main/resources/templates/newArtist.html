@@ -41,26 +41,38 @@
     </div>
       
     <div class="container" style="padding: 70px;">
+        
         <form:checkboxes items="${members}" path="members" />
         <form action="/artist/add" method="post">
-          <fieldset>
-            <input type="text" name="name" />
-            <input type="number" name="year" />
-
-            <b th:if="${not #lists.isEmpty(members)}">Miembros</b>
-            <div th:if="${not #lists.isEmpty(members)}" th:each="member : ${members}">
-                <label th:text="${member.name}"></label>
-               <input type="checkbox" th:name="members" th:value="${member.id}"/> 
+            <div class="form-group">
+                <label for="artistName">Artist Name</label>
+                <input type="text" name="name" class="form-control"/>
+            </div>
+            
+            
+            <div class="form-group">
+                <label for="artistYear">Years</label>
+                <input type="number" name="year" class="form-control"/>
             </div>
 
-            <b th:if="${not #lists.isEmpty(styles)}">Estilos</b>
-            <div th:if="${not #lists.isEmpty(styles)}" th:each="style : ${styles}">
-                <label th:text="${style.name}"></label>
-               <input type="checkbox" th:name="styles" th:value="${style.id}"/> 
+            <div class="form-group">
+                <label th:if="${not #lists.isEmpty(styles)}" for="members">Members</label>
+                <div th:if="${not #lists.isEmpty(members)}" th:each="member : ${members}">
+                   <label th:text="${member.name}"></label>
+                   <input type="checkbox" th:name="members" th:value="${member.id}"/> 
+                </div>
             </div>
 
-            <input type="submit" value="¡Suscríbe!"/>
-          </fieldset>
+            <div class="form-group">
+                <label th:if="${not #lists.isEmpty(styles)}" for="style">Styles</label>
+                <div th:if="${not #lists.isEmpty(styles)}" th:each="style : ${styles}">
+                    <label th:text="${style.name}"></label>
+                   <input type="checkbox" th:name="styles" th:value="${style.id}"/> 
+                </div>
+            </div>
+
+            <input type="submit" value="Add Artist" class="btn btn-success"/>
+
         </form>
     </div>
      

@@ -43,10 +43,12 @@
 
     <div class="container" style="padding: 70px;">
         <form action="/style/add" method="post">
-            <fieldset>
-                <input type="text" name="name" />
-                <input type="submit" value="¡Suscríbe!"/>
-            </fieldset>
+            <div class="form-group">
+                <label for="styleName">Style Name</label>
+                <input type="text" name="name" class="form-control"/>
+            </div>
+            
+            <button type="submit" class="btn btn-success">Add Style</button>
         </form>
     </div>
 
