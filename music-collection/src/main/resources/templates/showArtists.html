@@ -53,6 +53,8 @@
                 <th>Years</th>
                 <th>Members</th>
                 <th>Styles</th>
+                <th>Add Member</th>
+                <th>Add Style</th>
                 <th>Delete</th>
             </tr>
             
@@ -65,7 +67,7 @@
                         <form action="/artist/member" method="post">
                             <input type="hidden" id="idMember" name="idMember" th:attr="value=${member.id}">
                             <input type="hidden" id="idArtist" name="idArtist" th:attr="value=${elem.id}">
-                            <input type="submit" value="Eliminar miembro">
+                            <input type="submit" value="Delete Member" class="btn btn-danger btn-xs">
                         </form>
                     </span>
                 </td>
@@ -75,14 +77,20 @@
                         <form action="/artist/style" method="post">
                             <input type="hidden" id="idStyle" name="idStyle" th:attr="value=${style.id}">
                             <input type="hidden" id="idArtist" name="idArtist" th:attr="value=${elem.id}">
-                            <input type="submit" value="Eliminar estilo">
+                            <input type="submit" value="Delete Style" class="btn btn-danger btn-xs">
                         </form>
                     </span>
                 </td>
                 <td>
+                   <a th:href="@{/artist/{id}/member/add(id=${elem.id})}" class="btn btn-info btn-xs">Add New Member</a> 
+                </td>
+                <td>
+                    <a th:href="@{/artist/{id}/style/add(id=${elem.id})}" class="btn btn-info btn-xs">Add New Style</a>
+                </td>
+                <td>
                     <form th:attr="action=${action}" method="post">
                         <input type="hidden" id="id" name="id" th:attr="value=${elem.id}">
-                        <input type="submit" value="Eliminar" class="btn btn-danger btn-xs">
+                        <input type="submit" value="Delete Artist" class="btn btn-danger btn-xs">
                     </form>
                 </td>
             </tr>
