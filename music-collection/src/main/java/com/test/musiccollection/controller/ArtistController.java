@@ -296,6 +296,6 @@ public class ArtistController {
             
         model.addAttribute("elements", lista);
 
-        return "showArtists";
+        return "searchResults";
     }
 }

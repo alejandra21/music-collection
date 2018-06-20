@@ -33,6 +33,12 @@ public class PeopleController {
     private ServiceDeleteElements deleteElements;
     public  MessageResponse messageResponse = new MessageResponse();
     
+    
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public String index(Model model) {
+        return "landingPage";
+    }
+    
     @RequestMapping(value="/people", method=RequestMethod.GET)
     public String allPeople(Model model) {
         //Delete action
@@ -72,8 +78,6 @@ public class PeopleController {
     public String deletePeople(
             @PathVariable("id") Long id,
             Model model) {
-        
-        // TODO: I have to make a service that save new styles.
         
         String action   = "/people/delete";
 
