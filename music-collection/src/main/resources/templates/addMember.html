@@ -46,18 +46,29 @@
 
     
     <div class="container" style="padding: 70px;">
-        <form th:action="@{/artist/{id}/member/add/(id=${id})}" method="post">
+        
+        
+            <form th:action="@{/artist/{id}/member/add/(id=${id})}" method="post">
 
-            <div class="form-group">
-                <div th:if="${not #lists.isEmpty(members)}" th:each="member : ${members}">
-                    <label th:text="${member.name}"></label>
-                   <input type="checkbox" th:name="members" th:value="${member.id}"/> 
-                </div>
-            <div class="form-group">
+                <table class="table table-striped">
+                    <tr>
+                        <th>Name</th>
+                        <th>Checkbox</th>
+                    </tr>
+                    <tr th:if="${not #lists.isEmpty(members)}" th:each="member : ${members}">
+                        <th>
+                           <label th:text="${member.name}"></label> 
+                        </th>
+                        <th>
+                            <input type="checkbox" th:name="members" th:value="${member.id}"/>
+                        </th>
+                    </tr>                 
+                </table>
+ 
+                <button type="submit" class="btn btn-success">Add New Members</button>
 
-            <button type="submit" class="btn btn-success">Add New Members</button>
-
-        </form>
+            </form>
+        </table>
     </div>
     
   </body>
