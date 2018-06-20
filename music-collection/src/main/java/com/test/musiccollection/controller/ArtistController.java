@@ -6,6 +6,7 @@
 package com.test.musiccollection.controller;
 
 import com.test.musiccollection.MessageResponse;
+import com.test.musiccollection.model.Artist;
 import com.test.musiccollection.model.People;
 import com.test.musiccollection.model.Style;
 import com.test.musiccollection.repository.ArtistRepository;
@@ -72,6 +73,31 @@ public class ArtistController {
         });
         
         return "showArtists";
+    }
+    
+    @RequestMapping(value="/artist/{id}/showStyles/", method=RequestMethod.GET)
+    public String allArtistsStyles(@PathVariable("id") String artistId,
+                                    Model model) {
+        
+        
+        Artist artist = new Artist();
+        List<Style> styleList = new ArrayList<>();
+        Optional<Artist> optionalArtist = artistRepo.findById(Long.valueOf(artistId).longValue());
+        
+        if (optionalArtist.isPresent()){
+            
+            artist = optionalArtist.get();
+            styleList = artist.getStyles();
+            
+        }
+        
+        model.addAttribute("idArtist",artistId);
+        model.addAttribute("elements",styleList);
+        System.out.print("Este es el ID DEL ARTISTa");
+        System.out.print(artistId);
+        
+        
+        return "showArtistStyle";
     }
     
     @RequestMapping(value="/artist/{id}/member/add", method=RequestMethod.GET)
@@ -196,14 +222,12 @@ public class ArtistController {
         return "redirect:/artist";
     }
     
-    @RequestMapping(value="/artist/delete", method=RequestMethod.POST)
+    @RequestMapping(value="/artist/{id}/delete", method=RequestMethod.GET)
     public String deleteArtist(
-            @RequestParam(value="id") String id,
+            @PathVariable("id") Long id,
             Model model) {
-        
-        Long artistId = Long.valueOf(id).longValue();
-
-        MessageResponse response = deleteElements.deleteArtist(artistId);
+       
+        MessageResponse response = deleteElements.deleteArtist(id);
         String message = response.getContent();
                         
 
@@ -255,7 +279,7 @@ public class ArtistController {
         return "redirect:/artist";
     }
     
-    @RequestMapping(value = "/artist/style", method = RequestMethod.POST)
+   @RequestMapping(value = "/artist/style", method = RequestMethod.POST)
     public String deleteStyle(
             @RequestParam(value = "idStyle") String idStyle,
             @RequestParam(value = "idArtist") String idArtist,

@@ -36,49 +36,48 @@
                       <li><a href="/style">Styles</a></li>
                       <li><a href="/people">People</a></li>
                   </ul>
+                  <form class="navbar-form navbar-left">
+                      <div class="form-group">
+                          <input type="text" class="form-control" placeholder="Search for style">
+                      </div>
+                      <button type="submit" class="btn btn-default">Submit</button>
+                  </form>
               </div>
           </div>
     </div>
       
     <p th:text="${message}"></p>
     <div class="container" style="padding: 70px;">
-        <ul>
-            <div th:each="elem : ${elements}">
-
-                <a th:href="@{/artist/{id}/member/add(id=${elem.id})}">Añadir miembro</a>
-                <a th:href="@{/artist/{id}/style/add(id=${elem.id})}">Añadir estilo</a>
-
-                <li>
-                    <p th:text="${elem.name}"></p>
-                    <p th:text="${elem.years}"></p>
-                    <b th:if="${not #lists.isEmpty(elem.members)}">Member</b>
-
-                    <span th:each="member,iterStat : ${elem.members}">
-                        <p th:text="${member.name}"><p/>
-                        <form action="/artist/member" method="post">
-                            <input type="hidden" id="idMember" name="idMember" th:attr="value=${member.id}">
-                            <input type="hidden" id="idArtist" name="idArtist" th:attr="value=${elem.id}">
-                            <input type="submit" value="Eliminar miembro">
-                        </form>
-                    </span>
-
-                    <b th:if="${not #lists.isEmpty(elem.styles)}">Style</b>
-                    <span th:each="style,iterStat : ${elem.styles}">
-                        <p th:text="${style.name}"><p/>
-                        <form action="/artist/style" method="post">
-                            <input type="hidden" id="idStyle" name="idStyle" th:attr="value=${style.id}">
-                            <input type="hidden" id="idArtist" name="idArtist" th:attr="value=${elem.id}">
-                            <input type="submit" value="Eliminar estilo">
-                        </form>
-                    </span>
-
-                    <form th:attr="action=${action}" method="post">
-                        <input type="hidden" id="id" name="id" th:attr="value=${elem.id}">
-                        <input type="submit" value="Eliminar">
-                    </form>
-                </li>    
-            </div>
-        </ul>  
+        
+        <div class="col-md-4">
+            <h1>Artists</h1>
+        </div>
+        
+        <table class="table table-striped">
+            <tr>
+                <th>Name</th>
+                <th>Years</th>
+                <th>Members</th>
+                <th>Styles</th>
+                <th>Delete</th>
+            </tr>
+            <tr th:each = "elem, iterStat: ${elements}">
+                <td th:text="${elem.name}"></td>
+                <td th:text="${elem.years}"></td>
+                <td>
+                    <a th:href="@{/people/{id}/delete/(id=${elem.id})}" class="btn btn-info btn-xs">Delete</a>
+                </td>
+                <td>
+                    <a th:href="@{/people/{id}/showMembers/(id=${elem.id})}" class="btn btn-info btn-xs">Members</a>
+                </td>
+                <td>
+                    <a th:href="@{/artist/{id}/showStyles/(id=${elem.id})}" class="btn btn-danger btn-xs">Style</a>
+                </td>
+            </tr>
+            
+        </table>
+            
+            <a href="/artist/add" class="btn btn-success">Add Artist</a>
     </div>
   </body>
 

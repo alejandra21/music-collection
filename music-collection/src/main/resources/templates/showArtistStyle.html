@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+  <head>
+      <meta charset="utf-8"></meta>
+      <meta http-equiv="X-UA-Compatible" content="IE=edge"></meta>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+      <meta name="description" content=""></meta>
+      <meta name="author" content=""></meta>
+      <link rel="shortcut icon" type="image/png" th:href="@{/images/music.png}"></link>
+
+      <title>Music Collection</title>
+
+      <link th:href="@{/webjars/bootstrap/3.3.6/css/bootstrap.css}" rel="stylesheet"></link>
+      <link th:href="@{/css/starter.css}" rel="stylesheet"></link>
+      <link th:href="@{/css/style.css}" rel="stylesheet"></link>
+  </head>
+
+  <body>
+  
+    <p th:text="${message}"></p>
+    
+    <div th:fragment="navbar" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Music Collection</a>
+            </div>
+            <div class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="/artist">Artists</a></li>
+                    <li><a href="/style">Styles</a></li>
+                    <li><a href="/people">People</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container" style="padding: 70px;">
+        <div class="col-md-4">
+		<h1>Style</h1>
+	</div>
+        <table class="table table-striped">
+            <tr>
+                <th>Name</th>
+                <th>Delete</th>
+            </tr>
+            <tr th:each = "elem,iterStat : ${elements}">
+                <td th:text="${elem.name}"></td>
+                <td th:text="${idArtist}"></td>
+                <td>
+                 <form action="/artist/style" method="post">
+                        <input type="hidden" id="idStyle" name="idStyle" th:attr="value=${elem.id}">
+                        <input type="hidden" id="idArtist" name="idArtist" th:attr="value=${idArtist}">
+                        <input type="submit" value="Delete" class="btn btn-danger btn-xs">
+                 </form>
+                </td>
+            </tr>
+        </table>
+        
+        <a th:href="@{/artist/{id}/style/add(id=${idArtist})}" class="btn btn-success">Add Style</a>
+    </div>
+    
+  </body>
+
+</html>
