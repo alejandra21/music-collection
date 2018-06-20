@@ -169,5 +169,115 @@ public class ServiceAddElements {
        
     }
     
+    public MessageResponse newArtistMember(Long idArtist, List<String> members){
+        
+        People newMember = new People();
+        
+        Optional<Artist>  optionalArtist;
+        Optional<People>  optionalPeople;
+        Long memberId;
+        Long styleId;
+        String stringId;
+  
+        optionalArtist = artistRepo.findById(idArtist);
+        
+        if (!optionalArtist.isPresent()) {
+            
+            messageResponse.setStatus("400");
+            messageResponse.setContent("Se detecto un error al agregar miembros al staff del artista.");
+            return messageResponse;
+        }
+        
+        Artist artist = optionalArtist.get();
+        
+        for (int i = 0; i < members.size(); i++) {
+ 
+            stringId = members.get(i);
+            memberId = Long.valueOf(stringId).longValue();
+            optionalPeople = peopleRepo.findById(memberId);
+            if (!optionalPeople.isPresent()) {
+            
+                messageResponse.setStatus("400");
+                messageResponse.setContent("Se detecto un error al agregar miembros al staff del artista.");
+                break;
+            }
+            
+            newMember = optionalPeople.get();
+            artist.addMember(newMember);
+             
+	}
+
+        try {
+            artist = artistRepo.save(artist);
+        } catch (TransactionSystemException e){
+            // TODO: define the error code in the API.
+            messageResponse.setStatus("401");
+            messageResponse.setContent("El formato de sus datos no es correcto.");
+            return messageResponse;
+        }
+        
+        
+        messageResponse.setStatus("200");
+        messageResponse.setContent("El artista se ha almacenado de forma satisfactoria.");
+
+        return messageResponse;
+ 
+       
+    }
+    
+    public MessageResponse newArtistStyle(Long idArtist, List<String> styles){
+        
+        Style newStyle = new Style();
+        Optional<Artist>  optionalArtist;
+        Optional<Style>  optionalStyle;
+        Long styleId;
+        String stringId;
+  
+        optionalArtist = artistRepo.findById(idArtist);
+        
+        if (!optionalArtist.isPresent()) {
+            
+            messageResponse.setStatus("400");
+            messageResponse.setContent("Se detecto un error al agregar miembros al staff del artista.");
+            return messageResponse;
+        }
+        
+        Artist artist = optionalArtist.get();
+        
+        for (int i = 0; i < styles.size(); i++) {
+            
+            stringId = styles.get(i);
+            styleId = Long.valueOf(stringId).longValue();
+            optionalStyle = styleRepo.findById(styleId);
+            
+            if (!optionalStyle.isPresent()) {
+            
+                messageResponse.setStatus("400");
+                messageResponse.setContent("Se detecto un error al agregar un estilo al artista.");
+                break;
+            }
+            
+            newStyle = optionalStyle.get();
+            artist.addStyle(newStyle);
+ 
+	}
+        
+        
+        try {
+            artist = artistRepo.save(artist);
+        } catch (TransactionSystemException e){
+            // TODO: define the error code in the API.
+            messageResponse.setStatus("401");
+            messageResponse.setContent("El formato de sus datos no es correcto.");
+            return messageResponse;
+        }
+        
+        
+        messageResponse.setStatus("200");
+        messageResponse.setContent("El artista se ha almacenado de forma satisfactoria.");
+
+        return messageResponse;
+        
+    }
     
 }

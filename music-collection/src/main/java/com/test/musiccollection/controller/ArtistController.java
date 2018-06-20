@@ -84,6 +84,27 @@ public class ArtistController {
         return "addMember";
     }
     
+    @RequestMapping(value="/artist/{id}/member/add", method=RequestMethod.POST)
+    public String saveArtistMember(@PathVariable("id") Long artistId,
+                    @RequestParam("members") Optional<List<String>> members,
+                    Model model) {
+        
+        model.addAttribute("id", artistId);
+        model.addAttribute("members", peopleRepo.findAll());
+        
+        List<String> memberList = new ArrayList<>();
+        
+        if (members.isPresent()){
+            memberList =  members.get();
+        }
+   
+        MessageResponse message = addElements.newArtistMember(artistId, memberList);
+        
+        model.addAttribute("message", message);
+        
+        return "redirect:/artist";
+    }
+    
     @RequestMapping(value="/artist/add", method=RequestMethod.GET)
     public String formArtist(Model model) {
         
