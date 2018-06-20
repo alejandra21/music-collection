@@ -129,10 +129,6 @@ public class ArtistController {
             styleList =  style.get();
         }
         
-        System.out.print("Estos son los ID");
-        System.out.print(artistId);
-        System.out.print(styleList);
- 
         MessageResponse message = addElements.newArtistStyle(artistId, styleList);
         
         model.addAttribute("message", message);
@@ -174,31 +170,7 @@ public class ArtistController {
         message = response.getContent();
        
         model.addAttribute("message", message);
-
-        
-        System.out.print(artistRepo.findAll());
-        
-        List<People> lista = new ArrayList<>();
-            
-        artistRepo.findAll().forEach(artist->{
-            artist.getMembers().forEach(gente->{
-                
-                System.out.println(gente.getName());
-                System.out.println(gente.getYears());
-            
-            });
-            
-        });
-               
-        artistRepo.findAll().forEach(artist->{
-            artist.getStyles().forEach(gente->{
-                
-                System.out.println(gente.getName());
-            
-            });
-            
-        });
-                
+     
         return "redirect:/artist";
     }
     
@@ -215,27 +187,6 @@ public class ArtistController {
 
         model.addAttribute("message", message);
        
-
-        System.out.println("ESTOS SON LOS ELEMENTOS");
-        artistRepo.findAll().forEach(artist->{
-            artist.getMembers().forEach(gente->{
-                
-                System.out.println(gente.getName());
-                System.out.println(gente.getYears());
-            
-            });
-            
-        });
-               
-        artistRepo.findAll().forEach(artist->{
-            artist.getStyles().forEach(gente->{
-                
-                System.out.println(gente.getName());
-            
-            });
-            
-        });
-        
         return "redirect:/artist";
     }
     
@@ -245,7 +196,7 @@ public class ArtistController {
             @RequestParam(value = "idArtist") String idArtist,
             Model model) {
 
-        System.out.println("Estoy en member");
+
         
         Long memberId = Long.valueOf(idMember).longValue();
         Long artistId = Long.valueOf(idArtist).longValue();
@@ -255,9 +206,7 @@ public class ArtistController {
         
         
         model.addAttribute("message", message);
-        
-        System.out.println(message);
-
+  
         return "redirect:/artist";
     }
     
@@ -267,8 +216,6 @@ public class ArtistController {
             @RequestParam(value = "idArtist") String idArtist,
             Model model) {
 
-        System.out.println("Estoy en style");
-        
         Long styleId = Long.valueOf(idStyle).longValue();
         Long artistId = Long.valueOf(idArtist).longValue();
 
@@ -277,7 +224,6 @@ public class ArtistController {
 
         model.addAttribute("message", message);
         
-        System.out.println(message);
 
         return "redirect:/artist";
     }
@@ -287,8 +233,7 @@ public class ArtistController {
             @RequestParam(value = "styleName") String styleName,
             Model model) {
 
-        System.out.println("Estoy en style");
-        
+
         Optional<Style> optionalStyle = styleRepo.findByName(styleName);
         List<Artist> lista = new ArrayList<>();
         Style style = new Style();

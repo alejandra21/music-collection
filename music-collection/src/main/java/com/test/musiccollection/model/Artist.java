@@ -106,12 +106,10 @@ public class Artist{
 
     public void addStyle(Style style) {
         styles.add(style);
-        //member.setArtist(this);
     }
     
     public void removeStyle(Style style) {
         styles.remove(style);
-        //style.setArtist(null);
     }
 
 }

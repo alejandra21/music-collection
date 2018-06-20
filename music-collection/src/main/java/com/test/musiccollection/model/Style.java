@@ -69,7 +69,6 @@ public class Style {
     
     public void removeArtist(Artist artist) {
         artists.remove(artist);
-        //style.setArtist(null);
     }
     
 }

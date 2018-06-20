@@ -37,10 +37,7 @@ public class ServiceDeleteElements {
     
     public MessageResponse deleteStyle(Long id){
         
-        System.out.print("Estoy aqui");
         Optional<Style> optionalStyle = styleRepo.findById(id);
-        
-        System.out.print("Estoy aqui2");
             
         if (!optionalStyle.isPresent()) {
             messageResponse.setStatus("401");
