@@ -17,7 +17,7 @@
         <b th:if="${not #lists.isEmpty(style)}">Estilos</b>
         <div th:if="${not #lists.isEmpty(style)}" th:each="elem : ${style}">
             <label th:text="${elem.name}"></label>
-           <input type="checkbox" th:name="style" th:value="${elem.id}"/> 
+           <input type="checkbox" th:name="styles" th:value="${elem.id}"/> 
         </div>
                
         <input type="submit" value="¡Suscríbe!"/>
