@@ -155,7 +155,9 @@ public class ArtistController {
    
         MessageResponse message = addElements.newArtistStyle(artistId, styleList);
         
-        model.addAttribute("message", message);
+        model.addAttribute("message", message.getContent());
+        
+        System.out.println(message.getContent());
         
         return "redirect:/artist";
     }

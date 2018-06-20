@@ -53,7 +53,6 @@
             </tr>
             <tr th:each = "elem,iterStat : ${elements}">
                 <td th:text="${elem.name}"></td>
-                <td th:text="${idArtist}"></td>
                 <td>
                  <form action="/artist/style" method="post">
                         <input type="hidden" id="idStyle" name="idStyle" th:attr="value=${elem.id}">

@@ -65,13 +65,14 @@
                 <td th:text="${elem.name}"></td>
                 <td th:text="${elem.years}"></td>
                 <td>
-                    <a th:href="@{/people/{id}/delete/(id=${elem.id})}" class="btn btn-info btn-xs">Delete</a>
-                </td>
-                <td>
                     <a th:href="@{/people/{id}/showMembers/(id=${elem.id})}" class="btn btn-info btn-xs">Members</a>
+          
                 </td>
                 <td>
-                    <a th:href="@{/artist/{id}/showStyles/(id=${elem.id})}" class="btn btn-danger btn-xs">Style</a>
+                    <a th:href="@{/artist/{id}/showStyles/(id=${elem.id})}" class="btn btn-info btn-xs">Style</a>
+                </td>
+                <td>
+                    <a th:href="@{/people/{id}/delete/(id=${elem.id})}" class="btn btn-danger btn-xs">Delete</a>
                 </td>
             </tr>
             
