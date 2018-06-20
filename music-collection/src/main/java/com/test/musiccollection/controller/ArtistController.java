@@ -19,6 +19,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -71,6 +72,16 @@ public class ArtistController {
         });
         
         return "showArtists";
+    }
+    
+    @RequestMapping(value="/artist/{id}/member/add", method=RequestMethod.GET)
+    public String addArtistMember(@PathVariable("id") Long artistId,
+                                  Model model) {
+        
+        model.addAttribute("id", artistId);
+        model.addAttribute("members", peopleRepo.findAll());
+   
+        return "addMember";
     }
     
     @RequestMapping(value="/artist/add", method=RequestMethod.GET)

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+  <head>
+    <title>Good Thymes Virtual Grocery</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  </head>
+
+  <body>
+  
+    <p th:text="${message}"></p>
+    
+    <form th:action="@{/artist/{id}/member/add/(id=${id})}" method="post">
+      <fieldset>
+        
+        <b th:if="${not #lists.isEmpty(members)}">Miembros</b>
+        <div th:if="${not #lists.isEmpty(members)}" th:each="member : ${members}">
+            <label th:text="${member.name}"></label>
+           <input type="checkbox" th:name="members" th:value="${member.id}"/> 
+        </div>
+               
+        <input type="submit" value="¡Suscríbe!"/>
+      </fieldset>
+        
+    </form>
+    
+  </body>
+
+</html>

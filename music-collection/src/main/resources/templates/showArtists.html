@@ -12,7 +12,10 @@
     <p th:text="${message}"></p>
     
     <ul>
-        <div th:each="elem : ${elements}">    
+        <div th:each="elem : ${elements}">
+            
+            <a th:href="@{/artist/{id}/member/add(id=${elem.id})}">Añadir miembro</a>
+            
             <li>
                 <p th:text="${elem.name}"></p>
                 <p th:text="${elem.years}"></p>
