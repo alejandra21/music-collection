@@ -42,7 +42,7 @@ public class Artist{
     private Long id;
 
     // People associated with an artist.
-    @OneToMany(mappedBy = "artist", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "artist")
     private final List<People> members = new ArrayList<>();
 
     @ManyToMany()
@@ -96,12 +96,12 @@ public class Artist{
 
     public void addMember(People member) {
         members.add(member);
-        //member.setArtist(this);
+        member.setArtist(this);
     }
     
     public void removeMember(People member) {
         members.remove(member);
-        //member.setArtist(null);
+        member.setArtist(null);
     }
 
     public void addStyle(Style style) {

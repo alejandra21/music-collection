@@ -34,7 +34,9 @@ public class PeopleController {
     
     @RequestMapping(value="/people", method=RequestMethod.GET)
     public String allPeople(Model model) {
-        
+        //Delete action
+        String action  = "/people/delete";
+        model.addAttribute("action", action);
         model.addAttribute("elements", peopleRepo.findAll());
         return "showElements";
     }

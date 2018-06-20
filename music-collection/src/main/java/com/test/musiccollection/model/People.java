@@ -70,4 +70,8 @@ public class People {
         this.name = name;
     }
     
+     public void setArtist(Artist artist){
+        this.artist = artist;
+    }
+    
 }

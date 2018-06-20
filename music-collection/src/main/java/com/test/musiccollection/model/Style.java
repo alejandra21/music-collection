@@ -56,6 +56,10 @@ public class Style {
     public String getName(){
         return name;
     }
+    
+    public List<Artist> getArtist(){
+        return artists;
+    }
 
     // Setter
 

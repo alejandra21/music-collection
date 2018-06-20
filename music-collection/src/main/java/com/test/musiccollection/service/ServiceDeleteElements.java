@@ -51,6 +51,12 @@ public class ServiceDeleteElements {
         Style style = optionalStyle.get();
         
         try {
+            
+            style.getArtist().forEach(artist->{
+                //artist.removeStyle(style);
+                artist.removeStyle(style);
+            
+            });
             styleRepo.delete(style);;
         } catch (TransactionSystemException e){
             // TODO: define the error code in the API.
@@ -79,6 +85,7 @@ public class ServiceDeleteElements {
         People people = optionalPeople.get();
         
         try {
+            people.setArtist(null);
             peopleRepo.delete(people);;
         } catch (TransactionSystemException e){
             // TODO: define the error code in the API.
@@ -111,6 +118,12 @@ public class ServiceDeleteElements {
             artist.getStyles().forEach(style->{
                 //artist.removeStyle(style);
                 style.removeArtist(artist);
+            
+            });
+            
+            artist.getMembers().forEach(member->{
+                //artist.removeStyle(style);
+                artist.removeMember(member);
             
             });
             

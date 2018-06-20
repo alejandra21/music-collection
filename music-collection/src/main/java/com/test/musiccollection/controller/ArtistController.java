@@ -46,6 +46,9 @@ public class ArtistController {
     @RequestMapping(value="/artist", method=RequestMethod.GET)
     public String allArtists(Model model) {
         
+        String action  = "/artist/delete";
+        
+        model.addAttribute("action", action);
         model.addAttribute("elements", artistRepo.findAll());
         return "showArtists";
     }
@@ -133,6 +136,27 @@ public class ArtistController {
         model.addAttribute("elements", artistRepo.findAll());
         model.addAttribute("message", message);
         model.addAttribute("action", action);
+        
+        
+        System.out.println("ESTOS SON LOS ELEMENTOS");
+        artistRepo.findAll().forEach(artist->{
+            artist.getMembers().forEach(gente->{
+                
+                System.out.println(gente.getName());
+                System.out.println(gente.getYears());
+            
+            });
+            
+        });
+               
+        artistRepo.findAll().forEach(artist->{
+            artist.getStyles().forEach(gente->{
+                
+                System.out.println(gente.getName());
+            
+            });
+            
+        });
         
         return "showElements";
     }

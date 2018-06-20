@@ -38,6 +38,9 @@ public class StyleController {
     @RequestMapping(value="/style", method=RequestMethod.GET)
     public String allStyles(Model model) {
         
+        //Delete action
+        String action  = "/style/delete";
+        model.addAttribute("action", action);
         model.addAttribute("elements", styleRepo.findAll());
         return "showStyle";
     }
