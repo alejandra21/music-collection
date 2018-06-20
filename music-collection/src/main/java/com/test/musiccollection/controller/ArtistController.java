@@ -15,6 +15,7 @@ import com.test.musiccollection.service.ServiceAddElements;
 import com.test.musiccollection.service.ServiceDeleteElements;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -61,21 +62,26 @@ public class ArtistController {
     public String addArtist(
         @RequestParam(value="name") String name,
         @RequestParam(value="year") Integer years,
-        @RequestParam("members") List<String> members,
-        @RequestParam("styles") List<String> styles,
+        @RequestParam("members") Optional<List<String>> members,
+        @RequestParam("styles") Optional<List<String>> styles,
         Model model) {
           
-        System.out.print("ESTOS SON LOS MIEMBROS");
-        System.out.println(members);
+        List<String> stylesList = new ArrayList<>();
+        List<String> memberList = new ArrayList<>();
         
-        System.out.print("ESTOS SON LOS ESTILOS");
-        System.out.println(styles);
+        if (members.isPresent()){
+            memberList =  members.get();
+        }
         
+        if (styles.isPresent()){
+            stylesList = styles.get();
+        }
+
         String message;
         //Delete action
         String action  = "/artist/delete";
         
-        MessageResponse response = addElements.newArtist(years,name,members,styles);
+        MessageResponse response = addElements.newArtist(years,name,memberList,stylesList);
         
         message = response.getContent();
         
