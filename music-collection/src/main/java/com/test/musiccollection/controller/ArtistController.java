@@ -79,17 +79,18 @@ public class ArtistController {
     public String addArtistMember(@PathVariable("id") Long artistId,
                                   Model model) {
         
-        List<String> newList = new ArrayList<>();
-        Artist newArtist =  new Artist();
+        List<People> newList = new ArrayList<>();
+        List<People> artistMembers = new ArrayList<>();
         Optional<Artist> artist    =  artistRepo.findById(artistId);
         List<People> allPeople     =  peopleRepo.findAll();
         
         if (artist.isPresent()){
-            newList = allPeople.removeAll(newList)
+            artistMembers = artist.get().getMembers();
+            allPeople.removeAll(artistMembers);
         }
   
         model.addAttribute("id", artistId);
-        model.addAttribute("members", peopleRepo.findAll());
+        model.addAttribute("members", allPeople);
    
         return "addMember";
     }
