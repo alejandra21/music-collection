@@ -52,26 +52,7 @@ public class ArtistController {
         
         model.addAttribute("action", action);
         model.addAttribute("elements", artistRepo.findAll());
-        
-        artistRepo.findAll().forEach(artist->{
-            artist.getMembers().forEach(gente->{
                 
-                System.out.println(gente.getName());
-                System.out.println(gente.getYears());
-            
-            });
-            
-        });
-               
-        artistRepo.findAll().forEach(artist->{
-            artist.getStyles().forEach(gente->{
-                
-                System.out.println(gente.getName());
-            
-            });
-            
-        });
-        
         return "showArtists";
     }
     
@@ -295,5 +276,26 @@ public class ArtistController {
         System.out.println(message);
 
         return "redirect:/artist";
+    }
+    
+    @RequestMapping(value = "/artist/search", method = RequestMethod.GET)
+    public String searchStyle(
+            @RequestParam(value = "styleName") String styleName,
+            Model model) {
+
+        System.out.println("Estoy en style");
+        
+        Optional<Style> optionalStyle = styleRepo.findByName(styleName);
+        List<Artist> lista = new ArrayList<>();
+        Style style = new Style();
+        
+        if (optionalStyle.isPresent()){
+            style = optionalStyle.get();
+            lista = style.getArtist();
+        }
+            
+        model.addAttribute("elements", lista);
+
+        return "showArtists";
     }
 }
