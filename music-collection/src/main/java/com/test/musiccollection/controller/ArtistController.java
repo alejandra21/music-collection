@@ -81,17 +81,13 @@ public class ArtistController {
         }
 
         String message;
-        //Delete action
-        String action  = "/artist/delete";
-        
+
         MessageResponse response = addElements.newArtist(years,name,memberList,stylesList);
         
         message = response.getContent();
-        
-                
-        model.addAttribute("elements", artistRepo.findAll());
+       
         model.addAttribute("message", message);
-        model.addAttribute("action", action);
+
         
         System.out.print(artistRepo.findAll());
         
@@ -116,7 +112,7 @@ public class ArtistController {
             
         });
                 
-        return "showArtists";
+        return "redirect:/artist";
     }
     
     @RequestMapping(value="/artist/delete", method=RequestMethod.POST)
@@ -124,20 +120,14 @@ public class ArtistController {
             @RequestParam(value="id") String id,
             Model model) {
         
-        // TODO: I have to make a service that save new styles.
-        
-        String action   = "/artist/delete";
-        
         Long artistId = Long.valueOf(id).longValue();
 
         MessageResponse response = deleteElements.deleteArtist(artistId);
         String message = response.getContent();
                         
-        model.addAttribute("elements", artistRepo.findAll());
+
         model.addAttribute("message", message);
-        model.addAttribute("action", action);
-        
-        
+
         System.out.println("ESTOS SON LOS ELEMENTOS");
         artistRepo.findAll().forEach(artist->{
             artist.getMembers().forEach(gente->{
@@ -158,6 +148,6 @@ public class ArtistController {
             
         });
         
-        return "showElements";
+        return "redirect:/artist";
     }
 }
