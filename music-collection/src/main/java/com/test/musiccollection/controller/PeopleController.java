@@ -12,6 +12,7 @@ import com.test.musiccollection.service.ServiceDeleteElements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -67,18 +68,16 @@ public class PeopleController {
         return "showElements";
     }
     
-    @RequestMapping(value="/people/delete", method=RequestMethod.POST)
+    @RequestMapping(value="/people/{id}/delete", method=RequestMethod.GET)
     public String deletePeople(
-            @RequestParam(value="id") String id,
+            @PathVariable("id") Long id,
             Model model) {
         
         // TODO: I have to make a service that save new styles.
         
         String action   = "/people/delete";
-        
-        Long peopleId = Long.valueOf(id).longValue();
 
-        MessageResponse response = deleteElements.deletePeople(peopleId);
+        MessageResponse response = deleteElements.deletePeople(id);
         String message = response.getContent();
                         
         model.addAttribute("elements", peopleRepo.findAll());
