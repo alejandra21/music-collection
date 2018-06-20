@@ -6,6 +6,7 @@
 package com.test.musiccollection.repository;
 
 import com.test.musiccollection.model.Artist;
+import com.test.musiccollection.model.Style;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -20,7 +21,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ArtistRepository extends JpaRepository<Artist, Long> {
     
-    //@Query("SELECT a FROM Artist a where a.style.name = :styleName")
-    //public Optional<Artist> findByStyle(@Param("styleName") String styleName);
+    public Optional<Artist> findByName(@Param("name") String name);
     
 }

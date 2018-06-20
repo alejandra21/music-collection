@@ -38,7 +38,6 @@ public class ServiceAddElements {
     
     public MessageResponse newStyle(String name){
         
-        // Check if this user is already registered.
         Optional<Style> optionalStyle = styleRepo.findByName(name);
         
         if (optionalStyle.isPresent()) {
@@ -103,6 +102,16 @@ public class ServiceAddElements {
         Long memberId;
         Long styleId;
         String stringId;
+        
+        Optional<Artist> optionalArtist = artistRepo.findByName(name);
+
+        if (optionalArtist.isPresent()) {
+
+            messageResponse.setStatus("401");
+            messageResponse.setContent("Ya existe un artista con el mismo nombre.");
+
+            return messageResponse;
+        }
         
         Artist artist = new Artist();
         artist.setName(name);
